@@ -5,13 +5,15 @@ Created on Tue Feb 25 08:15:32 2020
 
 @author: root
 """
-
-def get_all_Fuego_stations(timestamp):
+    
+def get_all_Fuego_stations_4d(timestamp):
     
     from obspy.clients.earthworm import Client
     from obspy import UTCDateTime
     from obspy import Stream
     import numpy as np
+    
+    
 
     
     station_activity = np.zeros(shape=(0,3))
@@ -20,27 +22,31 @@ def get_all_Fuego_stations(timestamp):
     num = 0
     snum=0
     
-    t1 = UTCDateTime(timestamp) #the format is year:day_of_the_year:month
-    t2 = t1 + 24*60*60 + 1200
-#%%
+    t1 = UTCDateTime(timestamp)  #the format is year:day_of_the_year:month
+    t2 = t1 + 4*24*60*60 
+    
+    client = Client('138.253.113.19', 16022) #  138.253.113.19 or 138.253.112.23
+    
+    
+    #%% blank data
+    
     sta = 'VF01' # STATION VF01
     cha = 'HDF' # CHANNEL - inf
     net = 'XZ'  # Fuego volcano
     loc = ''    # location
     
-    client = Client('138.253.113.19', 16022)
     
     t1_2s = UTCDateTime(1526774400)
-    t2_2s = t1_2s + 2
+    t2_2s = t1_2s +2
     
     st_blank = Stream()
     st_blank = client.get_waveforms(net, sta, loc, cha, t1_2s , t2_2s)
     st_blank.detrend(type='linear')
     st_blank.detrend(type='demean')
-    st_blank.filter(type='bandpass',freqmin=0.5, freqmax=5)
+    #print(st_blank)
     
     
-#%% VF01    
+    #%% VF01    
     try:  
         ID = 1
         sta = 'VF01' # STATION VF01
@@ -73,7 +79,7 @@ def get_all_Fuego_stations(timestamp):
             
             
         
-#%% VF02   
+    #%% VF02   
     try:  
         ID = 2
         sta = 'VF02' # STATION VF01
@@ -105,7 +111,7 @@ def get_all_Fuego_stations(timestamp):
         st2 = st_blank        
         
         
-#%% VF03   
+    #%% VF03   
     try:  
         ID = 3
         sta = 'VF03' # STATION VF01
@@ -138,14 +144,14 @@ def get_all_Fuego_stations(timestamp):
         
         
         
- #%% VF04  
+     #%% VF04  
     try:  
         ID = 4
         sta = 'VF04' # STATION VF01
         cha = 'HDF' # CHANNEL - inf
         net = 'XZ'  # Fuego volcano
         loc = ''    # location, 
-
+    
         st4 = Stream()
         st4 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st4.detrend(type='linear')
@@ -168,16 +174,16 @@ def get_all_Fuego_stations(timestamp):
             
     except:
         st4 = st_blank        
- 
+     
                
- #%% VF05   
+     #%% VF05   
     try:  
         ID = 5
         sta = 'VF05' # STATION VF01
         cha = 'HDF' # CHANNEL - inf
         net = 'XZ'  # Fuego volcano
         loc = ''    # location, 
-
+    
         st5 = Stream()
         st5 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st5.detrend(type='linear')
@@ -203,14 +209,14 @@ def get_all_Fuego_stations(timestamp):
         st5 = st_blank        
         
         
- #%% VF06  
+     #%% VF06  
     try:  
         ID = 6
         sta = 'VF06' # STATION VF01
         cha = 'HDF' # CHANNEL - inf
         net = 'XZ'  # Fuego volcano
         loc = ''    # location, 
-
+    
         st6 = Stream()
         st6 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st6.detrend(type='linear')
@@ -235,20 +241,20 @@ def get_all_Fuego_stations(timestamp):
     except:
         st6 = st_blank        
         
-
-
-
-
-
-#%% FG8
-
+    
+    
+    
+    
+    
+    #%% FG8
+    
     try:  
         ID = 7
         sta = 'FG8' # STATION VF01
         cha = 'BDF' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '01'    # location, 
-
+    
         st7 = Stream()
         st7 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st7.detrend(type='linear')
@@ -272,15 +278,15 @@ def get_all_Fuego_stations(timestamp):
             
     except:
         st7 = st_blank   
-
-
+    
+    
     try:  
         ID = 8
         sta = 'FG8' # STATION VF01
         cha = 'BDF' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '02'    # location, 
-
+    
         st8 = Stream()
         st8 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st8.detrend(type='linear')
@@ -313,7 +319,7 @@ def get_all_Fuego_stations(timestamp):
         cha = 'BDF' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '03'    # location, 
-
+    
         st9 = Stream()
         st9 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st9.detrend(type='linear')
@@ -337,17 +343,17 @@ def get_all_Fuego_stations(timestamp):
             
     except:
         st9 = st_blank   
-
+    
       
-#%% FG10
-
+    #%% FG10
+    
     try:  
         ID = 10
         sta = 'FG10' # STATION VF01
         cha = 'BDF' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '01'    # location, 
-
+    
         st10 = Stream()
         st10 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st10.detrend(type='linear')
@@ -371,15 +377,15 @@ def get_all_Fuego_stations(timestamp):
             
     except:
         st10 = st_blank   
-
-
+    
+    
     try:  
         ID = 11
         sta = 'FG10' # STATION VF01
         cha = 'BDF' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '02'    # location, 
-
+    
         st11 = Stream()
         st11 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st11.detrend(type='linear')
@@ -412,7 +418,7 @@ def get_all_Fuego_stations(timestamp):
         cha = 'BDF' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '03'    # location, 
-
+    
         st12 = Stream()
         st12 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st12.detrend(type='linear')
@@ -436,20 +442,20 @@ def get_all_Fuego_stations(timestamp):
             
     except:
         st12 = st_blank   
-
-
-
-
-
-#%% FG11
-
+    
+    
+    
+    
+    
+    #%% FG11
+    
     try:  
         ID = 13
         sta = 'FG11' # STATION VF01
         cha = 'HDF' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '01'    # location, 
-
+    
         st13 = Stream()
         st13 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st13.detrend(type='linear')
@@ -473,15 +479,15 @@ def get_all_Fuego_stations(timestamp):
             
     except:
         st13 = st_blank   
-
-
+    
+    
     try:  
         ID = 14
         sta = 'FG11' # STATION VF01
         cha = 'HDF' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '02'    # location, 
-
+    
         st14 = Stream()
         st14 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st14.detrend(type='linear')
@@ -514,7 +520,7 @@ def get_all_Fuego_stations(timestamp):
         cha = 'HDF' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '04'    # location, 
-
+    
         st15 = Stream()
         st15 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st15.detrend(type='linear')
@@ -545,7 +551,7 @@ def get_all_Fuego_stations(timestamp):
         cha = 'HDF' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '05'    # location, 
-
+    
         st16 = Stream()
         st16 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st16.detrend(type='linear')
@@ -569,18 +575,18 @@ def get_all_Fuego_stations(timestamp):
             
     except:
         st16 = st_blank 
-
-
-
-#%% FG12
-
+    
+    
+    
+    #%% FG12
+    
     try:  
         ID = 17
         sta = 'FG12' # STATION VF01
         cha = 'BDF' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '01'    # location, 
-
+    
         st17 = Stream()
         st17 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st17.detrend(type='linear')
@@ -604,15 +610,15 @@ def get_all_Fuego_stations(timestamp):
             
     except:
         st17 = st_blank   
-
-
+    
+    
     try:  
         ID = 18
         sta = 'FG12' # STATION VF01
         cha = 'BDF' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '02'    # location, 
-
+    
         st18 = Stream()
         st18 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st18.detrend(type='linear')
@@ -645,7 +651,7 @@ def get_all_Fuego_stations(timestamp):
         cha = 'BDF' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '03'    # location, 
-
+    
         st19 = Stream()
         st19 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st19.detrend(type='linear')
@@ -669,17 +675,17 @@ def get_all_Fuego_stations(timestamp):
             
     except:
         st19 = st_blank   
-
-
-#%% FG13
-
+    
+    
+    #%% FG13
+    
     try:  
         ID = 20
         sta = 'FG13' # STATION VF01
         cha = 'BDF' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '01'    # location, 
-
+    
         st20 = Stream()
         st20 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st20.detrend(type='linear')
@@ -703,15 +709,15 @@ def get_all_Fuego_stations(timestamp):
             
     except:
         st20 = st_blank   
-
-
+    
+    
     try:  
         ID = 21
         sta = 'FG13' # STATION VF01
         cha = 'BDF' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '02'    # location, 
-
+    
         st21 = Stream()
         st21 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st21.detrend(type='linear')
@@ -744,7 +750,7 @@ def get_all_Fuego_stations(timestamp):
         cha = 'BDF' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '03'    # location, 
-
+    
         st22 = Stream()
         st22 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st22.detrend(type='linear')
@@ -768,18 +774,18 @@ def get_all_Fuego_stations(timestamp):
             
     except:
         st22 = st_blank   
-
-
-
-#%% FG15
-
+    
+    
+    
+    #%% FG15
+    
     try:  
         ID = 23
         sta = 'FG15' # STATION VF01
         cha = 'BDF' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '01'    # location, 
-
+    
         st23 = Stream()
         st23 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st23.detrend(type='linear')
@@ -803,15 +809,15 @@ def get_all_Fuego_stations(timestamp):
             
     except:
         st23 = st_blank   
-
-
+    
+    
     try:  
         ID = 24
         sta = 'FG15' # STATION VF01
         cha = 'BDF' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '02'    # location, 
-
+    
         st24 = Stream()
         st24 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st24.detrend(type='linear')
@@ -844,7 +850,7 @@ def get_all_Fuego_stations(timestamp):
         cha = 'BDF' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '03'    # location, 
-
+    
         st25 = Stream()
         st25 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st25.detrend(type='linear')
@@ -868,15 +874,15 @@ def get_all_Fuego_stations(timestamp):
             
     except:
         st25 = st_blank   
-
-
+    
+    
     try:  
         ID = 26
         sta = 'FG15' # STATION VF01
         cha = 'BDF' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '04'    # location, 
-
+    
         st26 = Stream()
         st26 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st26.detrend(type='linear')
@@ -900,15 +906,15 @@ def get_all_Fuego_stations(timestamp):
             
     except:
         st26 = st_blank   
-
-
+    
+    
     try:  
         ID = 27
         sta = 'FG15' # STATION VF01
         cha = 'BDF' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '05'    # location, 
-
+    
         st27 = Stream()
         st27 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st27.detrend(type='linear')
@@ -941,7 +947,7 @@ def get_all_Fuego_stations(timestamp):
         cha = 'BDF' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '06'    # location, 
-
+    
         st28 = Stream()
         st28 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st28.detrend(type='linear')
@@ -965,11 +971,11 @@ def get_all_Fuego_stations(timestamp):
             
     except:
         st28 = st_blank   
-
-
-
-
-#%% FV01    
+    
+    
+    
+    
+    #%% FV01    
     try:  
         ID = 29
         sta = 'FV01' # STATION VF01
@@ -1000,8 +1006,8 @@ def get_all_Fuego_stations(timestamp):
     except:
         st29 = st_blank
             
-
-#%% FV02   
+    
+    #%% FV02   
     try:  
         ID = 30
         sta = 'FV02' # STATION VF01
@@ -1033,7 +1039,7 @@ def get_all_Fuego_stations(timestamp):
         st30 = st_blank
             
             
-#%% FV03   
+    #%% FV03   
     try:  
         ID = 31
         sta = 'FV03' # STATION VF01
@@ -1063,9 +1069,9 @@ def get_all_Fuego_stations(timestamp):
             
     except:
         st31 = st_blank
-
-
-#%% FV04   
+    
+    
+    #%% FV04   
     try:  
         ID = 32
         sta = 'FV04' # STATION VF01
@@ -1096,8 +1102,8 @@ def get_all_Fuego_stations(timestamp):
     except:
         st32 = st_blank
         
-
-#%% FV08   
+    
+    #%% FV08   
     try:  
         ID = 33
         sta = 'FV08' # STATION VF01
@@ -1127,12 +1133,12 @@ def get_all_Fuego_stations(timestamp):
             
     except:
         st33 = st_blank
-
-
-#%% Seismic
-
-
-#%% FG3
+    
+    
+    #%% Seismic
+    
+    
+    #%% FG3
     try:  
         ID = 34
         sta = 'FG3' # STATION VF01
@@ -1164,7 +1170,7 @@ def get_all_Fuego_stations(timestamp):
         st34 = st_blank                    
         
         
-#%% FG8
+    #%% FG8
     try:  
         ID = 35
         sta = 'FG8' # STATION VF01
@@ -1197,7 +1203,7 @@ def get_all_Fuego_stations(timestamp):
         
                 
         
-#%% FG10
+    #%% FG10
     try:  
         ID = 36
         sta = 'FG10' # STATION VF01
@@ -1228,8 +1234,8 @@ def get_all_Fuego_stations(timestamp):
     except:
         st36 = st_blank           
         
-
-#%% FG11
+    
+    #%% FG11
     try:  
         ID = 37
         sta = 'FG11' # STATION VF01
@@ -1259,13 +1265,13 @@ def get_all_Fuego_stations(timestamp):
             
     except:
         st37 = st_blank  
-
-
-#%% FG12
+    
+    
+    #%% FG12
     try:  
         ID = 38
         sta = 'FG12' # STATION VF01
-        cha = 'BHZ' # CHANNEL - inf
+        cha = 'BHZ' # CHANNEL - vert
         net = 'GI'  # Fuego volcano
         loc = '00'    # location, 
         
@@ -1277,6 +1283,7 @@ def get_all_Fuego_stations(timestamp):
         break_test=st38
         break_test = break_test[0].filter("bandpass", freqmin=0.1,freqmax=10)
         sr = st38[0].stats.sampling_rate
+#        print(st38,sum(abs(st38[0].data)),st38[0].stats.npts ) 
         
         if sum(abs(st38[0].data)) > 10 and st38[0].stats.npts > 7200*sr:
             seismic_activity = np.lib.pad(seismic_activity, ((0,1),(0,0)), 'constant', constant_values=(0))
@@ -1291,13 +1298,13 @@ def get_all_Fuego_stations(timestamp):
             
     except:
         st38 = st_blank   
-
-
-#%% FG13
+    
+    
+    #%% FG13
     try:  
         ID = 39
         sta = 'FG13' # STATION VF01
-        cha = 'BHZ' # CHANNEL - inf
+        cha = 'BHZ' # CHANNEL - vert
         net = 'GI'  # Fuego volcano
         loc = '00'    # location, 
         
@@ -1323,9 +1330,9 @@ def get_all_Fuego_stations(timestamp):
             
     except:
         st39 = st_blank  
-
-
-#%% FG14
+    
+    
+    #%% FG14
     try:  
         ID = 40
         sta = 'FG14' # STATION VF01
@@ -1357,14 +1364,14 @@ def get_all_Fuego_stations(timestamp):
         st40 = st_blank             
         
         
-#%% FG16
+    #%% FG16
     try:  
         ID = 41
         sta = 'FG16' # STATION VF01
         cha = 'BHZ' # CHANNEL - inf
         net = 'GI'  # Fuego volcano
         loc = '00'    # location, 
-
+    
         st41 = Stream()
         st41 = client.get_waveforms(net, sta, loc, cha, t1 , t2)
         st41.detrend(type='linear')
@@ -1388,7 +1395,7 @@ def get_all_Fuego_stations(timestamp):
     except:
         st41 = st_blank      
         
-  #%%      give all traces and list of active stations
+      #%%      give all traces and list of active stations
         
         
     return(st1,st2,st3,st4,st5,st6,st7,st8,st9,st10,st11,st12,st13,st14,st15,st16,st17,st18,st19,st20,st21,st22,st23,st24,st25,st26,st27,st28,st29,st30,st31,st32,st33,st34,st35,st36,st37,st38,st39,st40,st41,station_activity,seismic_activity)    

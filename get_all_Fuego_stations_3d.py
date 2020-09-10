@@ -6,7 +6,7 @@ Created on Tue Feb 25 08:15:32 2020
 @author: root
 """
 
-def get_all_Fuego_stations(timestamp):
+def get_all_Fuego_stations_3d(timestamp):
     
     from obspy.clients.earthworm import Client
     from obspy import UTCDateTime
@@ -20,15 +20,15 @@ def get_all_Fuego_stations(timestamp):
     num = 0
     snum=0
     
-    t1 = UTCDateTime(timestamp) #the format is year:day_of_the_year:month
-    t2 = t1 + 24*60*60 + 1200
+    t1 = UTCDateTime(timestamp) - 1200 #the format is year:day_of_the_year:month
+    t2 = t1 + 3*24*60*60 + 1200
 #%%
     sta = 'VF01' # STATION VF01
     cha = 'HDF' # CHANNEL - inf
     net = 'XZ'  # Fuego volcano
     loc = ''    # location
     
-    client = Client('138.253.113.19', 16022)
+    client = Client('138.253.112.23', 16022) #  138.253.113.19 or 138.253.112.23
     
     t1_2s = UTCDateTime(1526774400)
     t2_2s = t1_2s + 2
